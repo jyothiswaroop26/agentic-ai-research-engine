@@ -9,6 +9,7 @@ from app.services.ai_service import AIService
 
 def test_settings_reads_required_openai_key(monkeypatch):
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("TAVILY_API_KEY", "tvly-test-key")
     settings = Settings()
     assert settings.openai_api_key == "test-key"
     assert settings.openai_model == "gpt-4o-mini"
@@ -16,12 +17,14 @@ def test_settings_reads_required_openai_key(monkeypatch):
 
 def test_settings_raises_when_openai_key_missing(monkeypatch):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.setenv("TAVILY_API_KEY", "tvly-test-key")
     with pytest.raises(ValidationError):
         Settings()
 
 
 def test_generate_text_uses_openai_responses(monkeypatch):
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("TAVILY_API_KEY", "tvly-test-key")
     settings = Settings()
 
     class FakeResponses:
@@ -42,6 +45,7 @@ def test_generate_text_uses_openai_responses(monkeypatch):
 
 def test_verify_connectivity_calls_models_list(monkeypatch):
     monkeypatch.setenv("OPENAI_API_KEY", "test-key")
+    monkeypatch.setenv("TAVILY_API_KEY", "tvly-test-key")
     settings = Settings()
     called = {"value": False}
 
