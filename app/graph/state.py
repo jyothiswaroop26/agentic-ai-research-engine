@@ -15,6 +15,7 @@ class WorkflowState(TypedDict, total=False):
 	synthesis: ResearchSynthesis
 	report_markdown: str
 	email_status: str
+	execution_trace: list[str]
 
 
 def create_initial_state(topic: str, recipient_email: str | None = None) -> WorkflowState:
@@ -22,4 +23,5 @@ def create_initial_state(topic: str, recipient_email: str | None = None) -> Work
 	return {
 		"topic": topic,
 		"recipient_email": recipient_email,
+		"execution_trace": [],
 	}
