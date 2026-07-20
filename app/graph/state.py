@@ -14,6 +14,7 @@ class WorkflowState(TypedDict, total=False):
 	research_dataset: ResearchDataset
 	synthesis: ResearchSynthesis
 	report_markdown: str
+	report_html: str
 	email_status: str
 	execution_trace: list[str]
 
